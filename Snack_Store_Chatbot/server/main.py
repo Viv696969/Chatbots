@@ -4,8 +4,11 @@ import uvicorn
 from pprint import pprint
 from db import *
 import re
+from time import time
 
 app=FastAPI()
+
+user_orders={}
 
 
 @app.post("/")
@@ -17,14 +20,17 @@ async def webhook(request:Request):
     parameters=data['queryResult']['parameters']
    
     output_context=data['queryResult']['outputContexts']
-    print(re.findall("\/sessions\/(.*)\/contexts\/",string=output_context[0]['name']))
+    session_id=give_session_id(output_context)
 
     match intent:
         case "give.orderid" :
             return give_order_status(parameters)
         
         case "order.add":
-            return add_to_order(parameters)
+            return add_to_order(parameters,session_id)
+        
+        case "order.complete":
+            return save_order(session_id)
 
 # gives order status by getting the connecting to db
 def give_order_status(parameters:dict):
@@ -48,20 +54,44 @@ def give_order_status(parameters:dict):
 
 # performs adding to cart functionality...takes the parameters and retrieve the 
 # food and numbers
-def add_to_order(parameters:dict):
+def add_to_order(parameters:dict,session_id:str):
     '''
-    takes parameters as input and extracts food items,numbers
+    takes parameters,session_ids as input and extracts food items,numbers
 
     '''
+    # st=time()
+    global user_orders
+    # print(f"user info at start=====>{user_orders}")
     food_items=parameters['food-item']
     numbers=parameters['number']
-    print(food_items,"\n",numbers)
+    length=len(food_items)
     
-    if len(food_items) != len(numbers):
+    if length != len(numbers): #error condition for add to order
         fulfillmentText="Please specify the items and quantities correctly"
     else:
-        fulfillmentText=f"Okkies added {food_items} and {numbers } to cart"
+        ############## session order adding logic ##############
+        order_dict=dict(zip(food_items,numbers))
+        # print(f"The order dict is === {order_dict}")
+        if session_id not in user_orders:
+            # when user first time says will create a new entry to remember the past convo
+            user_orders[session_id]=order_dict
+            # print(f"user info after first order==> {user_orders}")
+        else:
+            user_orders[session_id].update(order_dict)
+            # print(f"user_orders after next order {user_orders}")
 
+        ######printing logic ###########
+        text = ",".join(
+                [f"{int(j)} {i}" for i,j in user_orders[session_id].items() ]
+                )
+        
+        if length == 1:
+            fulfillmentText = f"Okkies added {int(numbers[0])} {food_items[0]} to cart...So far I have  {text} in the total cart...Anything else for you?"
+        else:
+            
+            fulfillmentText = f"Okkies..So far I added {text} to total cart...Anything else for you?"
+        ############## printing logic end ###############
+    print(user_orders)
     return JSONResponse(
         {
             'fulfillmentText':fulfillmentText
@@ -73,3 +103,40 @@ def add_to_order(parameters:dict):
 def give_session_id(output_context):
     session_id=re.findall("\/sessions\/(.*)\/contexts\/",string=output_context[0]['name'])[0]
     return session_id
+
+
+def save_order(session_id:str):
+    '''
+    based on session id will create a order and save it
+    '''
+    print(user_orders)
+    if session_id not in user_orders:
+        # check if user had put some items in cart
+        fulfillmentText=f"No such order created for you please create a new order..Thank yoy"
+    else:
+        order=user_orders[session_id]  #take the order 
+        status=save_order_to_db(order)  #save to database  
+        if status==-1:
+            # Some error has occured while creating
+            fulfillmentText=f"Error creating order from our side"\
+            f"Please try creating a new order"
+            del user_orders[session_id]
+        else:
+            # print("order id is ======>",status)
+            total_price=get_total_price(status)  #  get total price
+            save_tracking(status,mssg='in progress') # save the status as in progress
+            fulfillmentText=f'''
+                        Order placed successfully!
+                        Your Total price is {total_price}$
+                        Pay on delivery
+                        Your Order Id is {status}
+                        Use order id for tracking
+                            '''
+            del user_orders[session_id]
+            print(user_orders)
+    return JSONResponse(
+        {
+            'fulfillmentText':fulfillmentText
+        }
+    )
+
