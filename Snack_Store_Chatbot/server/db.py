@@ -63,9 +63,9 @@ def save_to_db(item,quantity,order_id,cursor,conn):
         return -1
     
 
-save_order_to_db(
-    {'pav bhaji':2}
-)
+# save_order_to_db(
+#     {'pav bhaji':2}
+# )
 
 def get_total_price(status):
     cursor,conn=connect()

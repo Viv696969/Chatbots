@@ -31,6 +31,9 @@ async def webhook(request:Request):
         
         case "order.complete":
             return save_order(session_id)
+        
+        case "order.remove":
+            return remove_items(session_id,parameters)
 
 # gives order status by getting the connecting to db
 def give_order_status(parameters:dict):
@@ -112,7 +115,7 @@ def save_order(session_id:str):
     print(user_orders)
     if session_id not in user_orders:
         # check if user had put some items in cart
-        fulfillmentText=f"No such order created for you please create a new order..Thank yoy"
+        fulfillmentText=f"No such order created for you please create a new order..Thank you"
     else:
         order=user_orders[session_id]  #take the order 
         status=save_order_to_db(order)  #save to database  
@@ -134,9 +137,42 @@ def save_order(session_id:str):
                             '''
             del user_orders[session_id]
             print(user_orders)
+
     return JSONResponse(
         {
             'fulfillmentText':fulfillmentText
         }
     )
 
+def remove_items(session_id:str,parameters:dict):
+    # check if session exists
+    if session_id not in user_orders:
+        fulfillmentText="You have not added anything to the order...I cant remove anything....You can type 'new order' and proceed further"
+    else:
+        # some orders are present and we need to remove them
+        # check if the item the user wants to remove is present in the orders dict
+        food_items=parameters['food-item']
+        print(food_items)
+        order_items=user_orders[session_id].keys() # take all the food items present in the order
+        text=" , ".join(food_items)
+        for i in food_items:
+            if i not in order_items:  # the item the user wants to remove is not in hsi cart
+                
+                fulfillmentText=f'OOPs sorry you dont have {text} or either of them  in the cart..You can remove something which already exists'
+                print("=========\ntest for unusual item solved\n========================")
+                return JSONResponse(
+                    {
+                        'fulfillmentText':fulfillmentText
+                    }
+                )
+        for i in food_items:
+            del user_orders[session_id][i]
+        
+        print("Test for items present in order removed solved")
+
+        return JSONResponse(
+            {
+                'fulfillmentText':f"Done!!.. Removed {text} from your cart"
+            }
+        )
+            
