@@ -168,6 +168,7 @@ def remove_items(session_id:str,parameters:dict):
         for i in food_items:
             del user_orders[session_id][i]
         
+        print(user_orders[session_id])
         print("Test for items present in order removed solved")
 
         return JSONResponse(
