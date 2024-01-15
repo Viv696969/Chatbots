@@ -34,6 +34,39 @@ async def webhook(request:Request):
         
         case "order.remove":
             return remove_items(session_id,parameters)
+        
+        case "new order":
+            return new_order(session_id)
+        
+        case "discard.order":
+            return discard_order(session_id)
+
+def new_order(session_id):
+    if session_id in user_orders:
+        fulfillmentText='You have an ongoing order in your cart...You cant create New order..to create a new order simply say "discard order or discard existing order"'
+    else:
+        fulfillmentText="Starting new order. Specify food items and quantities. For example, you can say, \"I would like to order two pizzas and one mango lassi. Also, we have only the following items on our menu: Pav Bhaji, Chole Bhature, Pizza, Mango Lassi, Masala Dosa, Biryani, Vada Pav, Rava Dosa, and Samosa."
+
+    return JSONResponse(
+        {
+            'fulfillmentText':fulfillmentText
+        }
+    )
+
+
+def  discard_order(session_id):
+    if session_id in user_orders:
+        text=",".join([ f"{quantity} {item}" for item,quantity in user_orders[session_id].items()])
+        fulfillmentText=f"discarded your order which had {text}...I am ready to take a new order"
+        del user_orders[session_id]
+    else:
+        fulfillmentText="You have not created an order yet..It would be greatfull if you create a new order.Simply say 'New Order' "
+    
+    return JSONResponse(
+        {
+            'fulfillmentText':fulfillmentText
+        }
+    )
 
 # gives order status by getting the connecting to db
 def give_order_status(parameters:dict):
