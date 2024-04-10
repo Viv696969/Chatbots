@@ -19,7 +19,7 @@ cursor=conn.cursor()
 app=FastAPI()
 
 user_bookings={}
-
+positions=['Left','Right','Middle']
 @app.post("/")
 async def webhook(request:Request):
     data=await request.json()
@@ -45,6 +45,12 @@ async def webhook(request:Request):
         
         case "take_show_time":
             return take_time(data['queryResult']["queryText"],session_id)
+        
+        case "take_section":
+            return take_section(parameters,session_id)
+        
+        case "take_position":
+            return  take_position(parameters,session_id)
     
 
 
@@ -96,10 +102,11 @@ def take_movie(parameters,session_id):
     where name='{movie_name}';
     '''
     cursor.execute(query)
+    timing_list=cursor.fetchall()
     timings=""
-    for i in cursor.fetchall():
+    for i in timing_list:
         timings+=i[0]+","
-    
+    user_bookings[session_id]['timings']=timing_list
     fulfillmentText=f"Selected {movie_name} successfully.The available show times are {timings}.Please select any one from that"
     return JSONResponse(
         {
@@ -108,20 +115,21 @@ def take_movie(parameters,session_id):
     )
 
 def take_time(time,session_id):
+    print(time)
     movie=user_bookings[session_id]['movie_name']
-    query=f'''
-    select time 
-    from movies join show_times_table
-    on movies.id=show_times_table.movie_id
-    where name='{movie}';
-    '''
-    cursor.execute(query)
+    # query=f'''
+    # select time 
+    # from movies join show_times_table
+    # on movies.id=show_times_table.movie_id
+    # where name='{movie}';
+    # '''
+    # cursor.execute(query)
     is_present=False
     timings=""
-    for i in cursor.fetchall():
+    for i in user_bookings[session_id]['timings']:
         print(i)
         timings+=i[0]+","
-        if "time"==i[0]:
+        if time==i[0]:
             is_present=True
 
     print(is_present)
@@ -132,12 +140,64 @@ def take_time(time,session_id):
         }
                             )
     user_bookings[session_id]['show_time']=time
+    print(user_bookings)
     fulfillmentText=f"Okkies..Selected {time} for {movie} for you..Please now select the section from normal and balcony"
     return JSONResponse(
         {
             'fulfillmentText':fulfillmentText
         }
     )
-    
 
+def take_section(parameters,session_id):
+    if session_id not in user_bookings:
+        return JSONResponse(
+        {
+            'fulfillmentText':"Please start a new booking first..."
+        }
+    )
+    if "movie_name" not in user_bookings[session_id]:
+        return JSONResponse(
+        {
+            'fulfillmentText':"Please select a movie first...For eg Avengers"
+
+        }
+    )
+    if "show_time" not in user_bookings[session_id]:
+        return JSONResponse(
+        {
+            'fulfillmentText':f"Please select a show time first for {user_bookings[session_id]['movie_name']} from {user_bookings[session_id]['timings']}"
+
+        }
+    )
+    section=parameters['section']
+    print(section)
+    user_bookings[session_id]['section']=section
+    return JSONResponse(
+        {
+            'fulfillmentText':f"Selected {user_bookings[session_id]['movie_name']} at {user_bookings[session_id]['show_time']} in section {section}..Please now select the position you would like to sit in from left, middle, right"
+        }
+    )
+    
+def take_position(parameters,session_id):
+    if session_id not in user_bookings:
+        return JSONResponse(
+        {
+            'fulfillmentText':"Please start a new booking first Eg=>(I want to start a new booking)"
+        }
+    )
+    position=parameters['position']
+    if position not in positions:
+          return JSONResponse(
+        {
+            'fulfillmentText':"Please enter a valid postion from left,right or middle.."
+        }
+    )
+    
+    user_bookings[session_id]['position']=position
+    fulfillmentText=f'''Selected {position} in {user_bookings[session_id]['section']} for {user_bookings[session_id]['movie_name']} at {user_bookings[session_id]["show_time"]}.Now please Enter the number of seats..Max Limit=4'''
+    return JSONResponse(
+        {
+            'fulfillmentText':fulfillmentText
+        }
+    )
     
