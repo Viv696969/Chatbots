@@ -6,20 +6,21 @@ import re
 # from time import time
 import mysql.connector as mysql
 import smtplib
+import json
 
 def connect():
     conn=mysql.connect(
-        host='localhost',
-        user='root',
-        password='varad1901',
-        database='cinema_mitra_db'
+        host='',
+        user='',
+        password='',
+        database='chatbot_db'
     )
     cursor=conn.cursor()
     return conn,cursor
 
 s = smtplib.SMTP('smtp.gmail.com', 587)
 s.starttls()
-s.login("vivek.211215.co@mhssce.ac.in", "varad1901")
+s.login("vivek.211215.co@mhssce.ac.in", "")
 
 
 def give_seat_nos(seats,section,position):
@@ -81,6 +82,9 @@ async def webhook(request:Request):
         
         case "take_gmail":
             return take_email(parameters,session_id)
+        
+        case "take_id_showing_ticket":
+            return show_ticket(parameters)
     
 
 
@@ -207,9 +211,10 @@ def take_email(parameters,session_id):
     seat_nums=give_seat_nos(seats,section,position)
     movie=user['movie_name']
     showtime=user['show_time']
-    query="select max(ticket_id) from confirmed_bookings;"
+    query="select max(ticket_id) from bookings;"
     cursor.execute(query)
     id=cursor.fetchone()[0]
+    print(id)
     ticket_id=id+1
     email_mssg=f'''
     Thank you for booking {movie} at {showtime}
@@ -218,21 +223,24 @@ def take_email(parameters,session_id):
     Number of tickets : {seats}
     Your Ticket id is {ticket_id}
     '''
-    s.sendmail("vivek.211215.co@mhssce.ac.in", email, email_mssg)
+    
     query=f'''
-    insert into confirmed_bookings values(
-    {email},
-    {seats},
-    {section}
-    ,{position},
+    insert into bookings values(
+    {ticket_id},
+    "{email}",
     "{movie}",
+    "{section}",
+    "{position}",
+    {seats},
+    "{seat_nums}",
     "{showtime}",
-    "12:34",
-    {seat_nums},
-    {ticket_id}
+    "url_demo",
+    "{email_mssg}"
     );
     '''
     cursor.execute(query)
+    conn.commit()
+    s.sendmail("vivek.211215.co@mhssce.ac.in", email, email_mssg)
     fulfillmentText=f"{email} thank you for booking {movie} with us..Your ticket id is {ticket_id}..Incase you forget your ticket id check you mail once..Enjoy"
     cursor.close()
     conn.close()
@@ -241,6 +249,31 @@ def take_email(parameters,session_id):
 def create_response(fulfillmentText):
     return JSONResponse({'fulfillmentText': fulfillmentText})
 
-
-
+def show_ticket(parameters):
+    id=int(parameters['number'])
+    print(id)
+    conn,cursor=connect()
+    query=f'''
+    select ticket_text from bookings where ticket_id={id}
+    '''
+    cursor.execute(query)
+    text=cursor.fetchone()
+    cursor.close()
+    conn.close()
+    if text is None:
+        return create_response(f"No such id like {id}...Please try with the correct id")
+    else:
+        return create_response(f"Your ticket is {text[0][26:]}")
+        # response = {
+        #     "fulfillmentMessages": [
+        #         {
+        #             "card": {
+        #                 "title": "Your ticket",
+        #                 "subtitle": f"{text[0][26:]}",
+        #                 "imageUri": "https://m.media-amazon.com/images/M/MV5BZDNlNzBjMGUtYTA0Yy00OTI2LWJmZjMtODliYmUyYTI0OGFmXkEyXkFqcGdeQXVyODIwMDI1NjM@._V1_FMjpg_UX1000_.jpg",
+        #             }
+        #         }
+        #     ]
+        # }
+        # return response
 
