@@ -1,18 +1,19 @@
 from fastapi import FastAPI,Request
 from fastapi.responses import JSONResponse
 import uvicorn
-from pprint import pprint
 import re
-# from time import time
 import mysql.connector as mysql
 import smtplib
-import json
+from mangum import Mangum
+
+app=FastAPI()
+handler=Mangum(app)
 
 def connect():
     conn=mysql.connect(
-        host='',
-        user='',
-        password='',
+        host='myfirstrds.c5eeiea4ujq1.ap-south-1.rds.amazonaws.com',
+        user='admin',
+        password='admin1234',
         database='chatbot_db'
     )
     cursor=conn.cursor()
@@ -20,7 +21,7 @@ def connect():
 
 s = smtplib.SMTP('smtp.gmail.com', 587)
 s.starttls()
-s.login("vivek.211215.co@mhssce.ac.in", "")
+s.login("vivek.211215.co@mhssce.ac.in", "varad1901")
 
 
 def give_seat_nos(seats,section,position):
@@ -38,10 +39,15 @@ def send_mail(reciever,mssg):
     s.sendmail("vivek.211215.co@mhssce.ac.in", reciever, mssg)
 
 
-app=FastAPI()
+
 
 user_bookings={}
 positions=['Left','Right','Middle']
+
+@app.get("/test_url")
+async def test():
+    return {"Message":"Test"}
+
 @app.post("/")
 async def webhook(request:Request):
     data=await request.json()
@@ -264,16 +270,5 @@ def show_ticket(parameters):
         return create_response(f"No such id like {id}...Please try with the correct id")
     else:
         return create_response(f"Your ticket is {text[0][26:]}")
-        # response = {
-        #     "fulfillmentMessages": [
-        #         {
-        #             "card": {
-        #                 "title": "Your ticket",
-        #                 "subtitle": f"{text[0][26:]}",
-        #                 "imageUri": "https://m.media-amazon.com/images/M/MV5BZDNlNzBjMGUtYTA0Yy00OTI2LWJmZjMtODliYmUyYTI0OGFmXkEyXkFqcGdeQXVyODIwMDI1NjM@._V1_FMjpg_UX1000_.jpg",
-        #             }
-        #         }
-        #     ]
-        # }
-        # return response
+
 

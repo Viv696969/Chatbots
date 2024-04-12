@@ -1,0 +1,5 @@
+fastapi==0.103.1
+uvicorn==0.24.0.post1
+mangum==0.17.0
+mysql-connector-python==8.2.0
+mysqlclient==2.2.1
