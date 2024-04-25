@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Booking Website</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #121212;
+        color: #fff;
+    }
+    .footer {
+        background-color: #222;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .footer a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .footer a:hover {
+        text-decoration: underline;
+    }
+    .neon-text {
+    text-shadow: 0 0 1px rgba(255, 165, 0, 0.5), 
+                 0 0 2px rgba(255, 165, 0, 0.5), 
+                 0 0 3px rgba(255, 165, 0, 0.5), 
+                 0 0 4px rgba(255, 165, 0, 0.5), 
+                 0 0 6px rgba(255, 165, 0, 0.5), 
+                 0 0 8px rgba(255, 165, 0, 0.5), 
+                 0 0 11px rgba(255, 165, 0, 0.5), 
+                 0 0 15px rgba(255, 165, 0, 0.5);
+    }
+
+    .navbar {
+        background-color: #222;
+        color: #fff;
+        padding: 15px 0;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .navbar-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .navbar-logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        font-family: 'Poppins', sans-serif;
+        margin-left: 20px;
+    }
+    .navbar-nav {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar-item {
+        margin-left: 20px;
+    }
+    .navbar-link {
+        text-decoration: none;
+        color: #fff;
+        transition: color 0.3s;
+        font-family: 'Poppins', sans-serif;
+    }
+    .navbar-link:hover {
+        color: #ff7f50;
+    }
+    .navbar-button {
+        padding: 10px 20px;
+        background-color: #ff7f50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-family: 'Poppins', sans-serif;
+        margin-right: 20px;
+    }
+    .navbar-button:hover {
+        background-color: #ff6347;
+    }
+    .movie-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 20px;
+    }
+    .movie-card {
+        width: calc(25% - 20px); /* Adjusted width */
+        margin-bottom: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+    }
+    .movie-card:hover {
+        transform: translateY(-5px);
+    }
+    .movie-card img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: 300px; /* Adjusted height */
+        object-fit: cover;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .movie-info {
+        padding: 20px;
+        background-color: #333;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .movie-info h2 {
+        margin-top: 0;
+        font-size: 1.5rem;
+        font-family: 'Poppins', sans-serif;
+    }
+    .movie-info p {
+        margin-bottom: 0;
+        color: #ccc;
+        font-family: 'Poppins', sans-serif;
+    }
+    .chatbot {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #222;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    @media (max-width: 992px) {
+        .movie-card {
+            width: calc(33.33% - 20px);
+        }
+    }
+    @media (max-width: 768px) {
+        .movie-card {
+            width: calc(50% - 20px);
+        }
+    }
+    @media (max-width: 576px) {
+        .movie-card {
+            width: calc(100% - 20px);
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="navbar-logo neon-text">book(NOT)MyShow</div>
+            <ul class="navbar-nav">
+                <li class="navbar-item" style="margin-top: 10px; font-size:x-large"><a href="#" class="navbar-link">Home</a></li>
+                <li class="navbar-item" style="margin-top: 10px; font-size:x-large"><a href="#" class="navbar-link">Movies</a></li>
+                <li class="navbar-item" style="margin-top: 10px; font-size:x-large"><a href="#" class="navbar-link">About</a></li>
+                <li class="navbar-item" style="margin-top: 10px; font-size:x-large"><button class="navbar-button">Login</button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="movie-container">
+        <div class="movie-card">
+            <img src="https://s.yimg.com/ny/api/res/1.2/3JJRZ7O.qYDi5ik1oyrifw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTg2Ng--/https://media.zenfs.com/en/total_film_411/0d0f15ca12a964b2143a9a40fea27741" alt="Movie 1">
+            <div class="movie-info">
+                <h2>oppenheimer</h2>
+                <p>Genre: Thriller, Historical drama, Crime Fiction</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://m.media-amazon.com/images/I/81CLFQwU-WL.jpg" alt="Movie 2">
+            <div class="movie-info">
+                <h2>Dark Knight</h2>
+                <p>Genre: Action, Noir, Horror, War</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://i.pinimg.com/474x/0f/b6/5e/0fb65e0960b66016fba360634192c446.jpg" alt="Movie 3">
+            <div class="movie-info">
+                <h2>Andhadhun </h2>
+                <p>Genre: Thriller, Comedy, Suspense, Action</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://images-cdn.ubuy.co.in/6534c4f040df15029467ccdb-poster-stop-online-star-wars-episode-i.jpg" alt="Movie 4">
+            <div class="movie-info">
+                <h2>star wars the rise of skywalker</h2>
+                <p>Genre: Animation, Action, War, Documentary</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://m.media-amazon.com/images/M/MV5BMjI2Njg2Y2EtZjgwMC00ZGVkLWJmMWYtYjVhYjk2ZTkwNWE1XkEyXkFqcGdeQXVyMTMxMjA5NDU1._V1_.jpg" alt="Movie 5">
+            <div class="movie-info">
+                <h2>KGF 2</h2>
+                <p>Genre: Action, Thriller, Adventer</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/3/3b/URI_-_New_poster.jpg" alt="Movie 6">
+            <div class="movie-info">
+                <h2>URI</h2>
+                <p>Genre: Action, Thriller, Adventer</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_FMjpg_UX1000_.jpg" alt="Movie 7">
+            <div class="movie-info">
+                <h2>Blade Runner 2049</h2>
+                <p>Genre: Cyberpunk, Sci-fi, Sigma Male, Literally Me</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://m.media-amazon.com/images/M/MV5BODRmZDVmNzUtZDA4ZC00NjhkLWI2M2UtN2M0ZDIzNDcxYThjL2ltYWdlXkEyXkFqcGdeQXVyNTk0MzMzODA@._V1_FMjpg_UX1000_.jpg" alt="Movie 8">
+            <div class="movie-info">
+                <h2>Your name</h2>
+                <p>Genre: Romance, Adventer, Fantasy</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdi7p2hVpfid0sdcPO8XdXXJiTYgUc-hh-_0f0k8Elcg&s" alt="Movie 9">
+            <div class="movie-info">
+                <h2>A Silent voice </h2>
+                <p>Genre: Anime, Silent, Comedy</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://m.media-amazon.com/images/M/MV5BMmQ3ZTViYTEtZDUwZS00NjQyLWJmODctN2JhOGVmNTQ5N2ZiXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg" alt="Movie 10">
+            <div class="movie-info">
+                <h2>gran turismo</h2>
+                <p>Genre: Sports, Action</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://m.media-amazon.com/images/M/MV5BYTExZTdhY2ItNGQ1YS00NjJlLWIxMjYtZTI1MzNlMzY0OTk4XkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_.jpg" alt="Movie 11">
+            <div class="movie-info">
+                <h2>The Batman</h2>
+                <p>Genre: Sigma Male, Horror, Literally Me, Noir</p>
+            </div>
+        </div>
+        <div class="movie-card">
+            <img src="https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg" alt="Movie 12">
+            <div class="movie-info">
+                <h2>The Avengers End Game</h2>
+                <p>Genre: Action, War, Fantasy, Super Hero</p>
+            </div>
+        </div>
+        <!-- Add more movie cards as per req -->
+    </div>
+    <div class="chatbot">
+        <iframe
+    allow="microphone;"
+    width="350"
+    height="430"
+    src="https://console.dialogflow.com/api-client/demo/embedded/0c0f4ab9-ef53-40f2-864f-232e45eb9d8d">
+</iframe>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 book(NOT)MyShow. All rights reserved. Developed by <a href="#" target="_blank">NoName.JSON</a>.</p>
+    </div>
+</body>
+</html>

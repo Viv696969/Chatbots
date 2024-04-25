@@ -9,19 +9,30 @@ from mangum import Mangum
 app=FastAPI()
 handler=Mangum(app)
 
+#############################   Email Module ####################################
+s = smtplib.SMTP('smtp.gmail.com', 587)
+s.starttls()
+s.login("your gmail", "your gmail password")
+
+def send_mail(reciever,mssg):
+    s.sendmail("your gmail", reciever, mssg)
+
+###################################################################################
+
+
+user_bookings={}
+positions=['Left','Right','Middle']
+
+
 def connect():
     conn=mysql.connect(
-        host='myfirstrds.c5eeiea4ujq1.ap-south-1.rds.amazonaws.com',
-        user='admin',
-        password='admin1234',
+        host='your aws endpoint or localhost',
+        user='your username',
+        password='your password',
         database='chatbot_db'
     )
     cursor=conn.cursor()
     return conn,cursor
-
-s = smtplib.SMTP('smtp.gmail.com', 587)
-s.starttls()
-s.login("vivek.211215.co@mhssce.ac.in", "varad1901")
 
 
 def give_seat_nos(seats,section,position):
@@ -34,15 +45,6 @@ def give_seat_nos(seats,section,position):
             seat_nums+=f"C{i+1},"
     return seat_nums
 
-def send_mail(reciever,mssg):
-    
-    s.sendmail("vivek.211215.co@mhssce.ac.in", reciever, mssg)
-
-
-
-
-user_bookings={}
-positions=['Left','Right','Middle']
 
 @app.get("/test_url")
 async def test():
