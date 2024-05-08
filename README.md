@@ -14,15 +14,18 @@ These chatbots don't use generative AI models like GPT or Llama, which rely on R
 
 ## Tech Stack
 
-![Logo](https://github.com/Viv696969/Chatbots/blob/main/aws_logos/dialogflow-removebg-preview.png?raw=true)
-![Logo](https://github.com/Viv696969/Chatbots/blob/main/aws_logos/fast.png?raw=true)
-![Logo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWlGLH72Yh7sPDvzsPSw-xD4Nl7eOwjTXOpXwZIgOFMA&s)
+![](https://img.shields.io/badge/-Dialogflow-white?style=flat&logo=dialogflow&link=https%3A%2F%2Fcloud.google.com%2Fdialogflow)
+
+[![My Skills](https://skillicons.dev/icons?i=fastapi&perline=3)](https://skillicons.dev)
+
+[![My Skills](https://skillicons.dev/icons?i=mysql&perline=3)](https://skillicons.dev)
+
 
 # Cloud Service Providers used
-![Logo](https://github.com/Viv696969/Chatbots/blob/main/aws_logos/Emblem-Google-Cloud-removebg-preview.png?raw=true)
-![Logo](https://github.com/Viv696969/Chatbots/blob/main/aws_logos/Amazon-Web-Services-AWS-Logo.png?raw=true)
+[![My Skills](https://skillicons.dev/icons?i=gcp&perline=3)](https://skillicons.dev)
 
 
+[![My Skills](https://skillicons.dev/icons?i=aws&perline=3)](https://skillicons.dev)
 
 
 
@@ -51,9 +54,11 @@ These type of chatbots are used by :
 
 
 ## Screenshots
-- Rajni
+
 ![Rajni](https://github.com/Viv696969/Chatbots/blob/main/Snack_Store_Chatbot_using_dialogflow/ss.PNG?raw=true?340x480)
-- CinemaMitra
+
+
+
 ![Rajni](https://github.com/Viv696969/Chatbots/blob/main/Movie%20Ticket%20Booking/chatbot_img.PNG?raw=true?640x480)
 
 
@@ -62,5 +67,7 @@ These type of chatbots are used by :
 Connect with me On
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vivek-chouhan/)
 
+View my Project Videos
+[![linkedin](https://img.shields.io/badge/YouTube-red?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC9_8LY1YTzNuip6mcqbcV1g)
 
 
