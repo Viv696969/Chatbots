@@ -4,7 +4,7 @@
 The Cinema Mitra Online Movie Ticket Booking System Chatbot is a cloud-based application designed to simplify and enhance the process of booking movie tickets. Leveraging a combination of AWS services including RDS, Dialogflow, Lambda, S3, VPC, and budget management tools, the chatbot provides a seamless and interactive platform for users to browse movies, select showtimes, choose seats, and complete bookings through natural language conversations.
 
 ## View Website
-[![](https://img.shields.io/badge/-bookNOTmyShow-red?style=flat&logoSize=auto )](https%3A%2F%2Fbook-not-my-show.s3.ap-south-1.amazonaws.com%2Findex.html)
+[![](https://img.shields.io/badge/-bookNOTmyShow-red?style=flat&logoSize=auto )](https://book-not-my-show.s3.ap-south-1.amazonaws.com/index.html)
 
 
 ## Architecture
@@ -55,13 +55,13 @@ The Cinema Mitra Online Movie Ticket Booking System Chatbot is a cloud-based app
 ![image](https://github.com/iamBilal04/book-NOT-myShow/assets/110116638/91bc1d53-82b4-4cca-9882-7150d4016005)
 
 ## 🔗 Links
-- Vivek chouhan &nbsp;
+- Vivek chouhan <br/>
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vivek-chouhan/)
 
-- Bilal Ansari &nbsp;
+- Bilal Ansari <br/>
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/imbilal164/)
 
-View my Project Videos
+View my Project Videos <br/>
 [![linkedin](https://img.shields.io/badge/YouTube-red?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC9_8LY1YTzNuip6mcqbcV1g)
 
 
