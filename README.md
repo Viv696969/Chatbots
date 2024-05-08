@@ -7,7 +7,7 @@ This repository contains projects related to chatbot development using cloud tec
 These chatbots don't use generative AI models like GPT or Llama, which rely on RAG (Retrieval Augmented Generation). Instead, they can be used for specific purposes in various domains like healthcare, sales, marketing, and booking systems. They also communicate with databases like MySQL to provide dynamic information, a feature missing in RAG chatbots.
 
 #### Entire Docs for Online Movie Ticket Booking System Chatbot  aka CinemaMitra
-[CinemaMitra](https://linktodocumentation)
+[CinemaMitra](https://github.com/Viv696969/Chatbots/tree/main/Movie%20Ticket%20Booking#readme)
 #### Entire Docs for Online Food Delivery System Chatbot  aka Rajni
 [Rajni](https://github.com/Viv696969/Chatbots/tree/main/Snack_Store_Chatbot_using_dialogflow)
 
@@ -71,4 +71,4 @@ View my Project Videos <br/>
 &nbsp;[![linkedin](https://img.shields.io/badge/YouTube-red?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC9_8LY1YTzNuip6mcqbcV1g)
 
 Gmail <br/>
-&nbsp;[![My Skills](https://skillicons.dev/icons?i=gmail&perline=3)](https://skillicons.dev)
+&nbsp;[![My Skills](https://skillicons.dev/icons?i=gmail&perline=3)](mailto:chouhanvivek207@gmail.com)
