@@ -64,11 +64,11 @@ These type of chatbots are used by :
 
 
 ## 🔗 Links
-Connect with me On
+Connect with me On<br/>
 &nbsp;[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vivek-chouhan/)
 
-View my Project Videos
+View my Project Videos <br/>
 &nbsp;[![linkedin](https://img.shields.io/badge/YouTube-red?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC9_8LY1YTzNuip6mcqbcV1g)
 
-Gmail
+Gmail <br/>
 &nbsp;[![My Skills](https://skillicons.dev/icons?i=gmail&perline=3)](https://skillicons.dev)
