@@ -59,15 +59,16 @@ These type of chatbots are used by :
 
 
 
-![Rajni](https://github.com/Viv696969/Chatbots/blob/main/Movie%20Ticket%20Booking/chatbot_img.PNG?raw=true?640x480)
+![CinemaMitra](https://github.com/Viv696969/Chatbots/blob/main/Movie%20Ticket%20Booking/chatbot_img.PNG?raw=true?640x480)
 
 
 
 ## 🔗 Links
 Connect with me On
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vivek-chouhan/)
+&nbsp;[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vivek-chouhan/)
 
 View my Project Videos
-[![linkedin](https://img.shields.io/badge/YouTube-red?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC9_8LY1YTzNuip6mcqbcV1g)
+&nbsp;[![linkedin](https://img.shields.io/badge/YouTube-red?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC9_8LY1YTzNuip6mcqbcV1g)
 
-
+Gmail
+&nbsp;[![My Skills](https://skillicons.dev/icons?i=gmail&perline=3)](https://skillicons.dev)
